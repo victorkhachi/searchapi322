@@ -1,0 +1,15 @@
+C:\Users\hp\Documents\School pdf\Year 3\322SearchAPI\bin\Debug\net7.0\322SearchAPI.exe
+C:\Users\hp\Documents\School pdf\Year 3\322SearchAPI\bin\Debug\net7.0\322SearchAPI.deps.json
+C:\Users\hp\Documents\School pdf\Year 3\322SearchAPI\bin\Debug\net7.0\322SearchAPI.runtimeconfig.json
+C:\Users\hp\Documents\School pdf\Year 3\322SearchAPI\bin\Debug\net7.0\322SearchAPI.dll
+C:\Users\hp\Documents\School pdf\Year 3\322SearchAPI\bin\Debug\net7.0\322SearchAPI.pdb
+C:\Users\hp\Documents\School pdf\Year 3\322SearchAPI\obj\Debug\net7.0\322SearchAPI.csproj.AssemblyReference.cache
+C:\Users\hp\Documents\School pdf\Year 3\322SearchAPI\obj\Debug\net7.0\322SearchAPI.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\hp\Documents\School pdf\Year 3\322SearchAPI\obj\Debug\net7.0\322SearchAPI.AssemblyInfoInputs.cache
+C:\Users\hp\Documents\School pdf\Year 3\322SearchAPI\obj\Debug\net7.0\322SearchAPI.AssemblyInfo.cs
+C:\Users\hp\Documents\School pdf\Year 3\322SearchAPI\obj\Debug\net7.0\322SearchAPI.csproj.CoreCompileInputs.cache
+C:\Users\hp\Documents\School pdf\Year 3\322SearchAPI\obj\Debug\net7.0\322SearchAPI.dll
+C:\Users\hp\Documents\School pdf\Year 3\322SearchAPI\obj\Debug\net7.0\refint\322SearchAPI.dll
+C:\Users\hp\Documents\School pdf\Year 3\322SearchAPI\obj\Debug\net7.0\322SearchAPI.pdb
+C:\Users\hp\Documents\School pdf\Year 3\322SearchAPI\obj\Debug\net7.0\322SearchAPI.genruntimeconfig.cache
+C:\Users\hp\Documents\School pdf\Year 3\322SearchAPI\obj\Debug\net7.0\ref\322SearchAPI.dll

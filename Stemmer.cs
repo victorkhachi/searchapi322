@@ -96,7 +96,7 @@ namespace SearchAPI
         }
         public string Stem(string word){
             if(word == null || word.Length < 3){
-                return "";
+                return "word";//return original word if too short
             }
                 word = word.ToLower();//convert word to lowercase
                 for(int i = 0; i < word.Length; i++){
@@ -324,7 +324,15 @@ namespace SearchAPI
                 _j--;
             }
 
-            return word;
+            // Construct the stemmed word from __buffer
+            StringBuilder stemmedWord = new StringBuilder();
+            for (int i = 0; i <= _j; i++)
+            {
+                stemmedWord.Append(__buffer[i]);
+            }
+            
+            return stemmedWord.ToString();
+
         }
     }
 }

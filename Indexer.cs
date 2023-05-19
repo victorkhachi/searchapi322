@@ -33,11 +33,12 @@ namespace SearchAPI
             return result;
         }
         // Method to get Term Frequency in a document
-         public int GetTermFrequency(string term, string documentId)
+         public int GetTermFrequency(string term, int documentId)
         {
-            if (termFrequencies.ContainsKey(term) && termFrequencies[term].ContainsKey(documentId))
+            string documentIdString = documentId.ToString(); 
+            if (termFrequencies.ContainsKey(term) && termFrequencies[term].ContainsKey(documentIdString))
             {
-                return termFrequencies[term][documentId];
+                return termFrequencies[term][documentIdString];
             }
             return 0;
         }

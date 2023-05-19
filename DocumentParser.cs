@@ -1,12 +1,7 @@
 namespace SearchAPI{
     public class DocumentParser{
         private string docContent;
-        private List<string> StopWords = new List<string>{"the", "a", "an", "and", "but","or", "for", "nor", "on", "at", "to", "from", "by", "with", "in", "of", "am", "I", "i", "my", "our", "has", "can", "been", "have", "that", "is", "isn't", "was", "that", "those", "these", "you", "me"};
-
-        private string StemWord(string word){
-            var stemmer = new Stemmer();
-            return stemmer.Stem(word.ToLowerInvariant());
-        }
+        private List<string> StopWords = new List<string>{"the", "a", "an", "and", "but","or", "for", "nor", "on", "at", "to", "from", "by", "with", "in", "of", "am", "I", "i", "my", "our", "has", "can", "been", "have", "that", "is", "isn't", "was", "that", "those", "these", "you", "me", "would"};
 
         public DocumentParser(Document document){
             docContent = document.GetContent();
@@ -14,13 +9,14 @@ namespace SearchAPI{
         
         public List<string> GetWords()
         {
+            
             //Tokenizes the docContent into words
             string[] allWords = docContent.Split(new [] {' '}, StringSplitOptions.RemoveEmptyEntries); 
 
             //Stem words in doc
             for (int i = 0; i < allWords.Length; i++)
             {
-                allWords[i] = StemWord(allWords[i]);
+                allWords[i] = (allWords[i]);
                 allWords[i] = new string(allWords[i].Where(c => char.IsLetterOrDigit(c)).ToArray()).ToLower();
             }
             

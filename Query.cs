@@ -6,9 +6,6 @@ namespace SearchAPI{
         public Query(string query){
             this.query = query;
         }
-        public string QueryString{
-            get{return query; }
-        }
         public List<string> GetTerms(){
             string[] words = query.Split(new [] {' '}, StringSplitOptions.RemoveEmptyEntries); 
 
@@ -24,8 +21,9 @@ namespace SearchAPI{
             //returns list of words
             return terms;
         }
-        public HashSet<Document> Execute(Indexer indexer)
+        public HashSet<Document> Execute()
         {
+            Indexer indexer = new Indexer();
             HashSet<Document> results = new HashSet<Document>();
 
             // get the list of query terms

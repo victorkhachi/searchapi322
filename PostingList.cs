@@ -2,10 +2,12 @@ namespace SearchAPI{
     public class PostingList
     {
        private List<Tuple<int, int>> postings;
+       private string? Term;
 
-       public PostingList()
+        public PostingList(string term)
        {
             postings = new List<Tuple<int, int>>();
+            this.Term = term;
        }
         public void AddPosting(int docId, int frequency)
         {

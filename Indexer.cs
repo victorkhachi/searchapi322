@@ -1,38 +1,86 @@
+using System.IO;
+using MongoDB.Bson;
+using MongoDB.Driver;
+
 namespace SearchAPI
 {
-     //Indexer class 
-     public class Indexer{
-        private Dictionary<string, HashSet<Document>> invertedIndex;
+    // Indexer class
+    public class Indexer
+    {
+        private Dictionary<string, List<Posting>> invertedIndex;
         private Dictionary<string, Dictionary<string, int>> termFrequencies;
         private Dictionary<string, int> documentFrequencies;
+        private DocumentParser documentParser;
+        private DBrepository dbRepository;
 
- 
-        public Indexer()
+        public Indexer(DocumentParser documentParser,  DBrepository dbRepository)
         {
-            invertedIndex = new Dictionary<string, HashSet<Document>>();
+            invertedIndex = new Dictionary<string, List<Posting>>();
+            this.documentParser = documentParser;
             termFrequencies = new Dictionary<string, Dictionary<string, int>>();
             documentFrequencies = new Dictionary<string, int>();
+            this.dbRepository = dbRepository;
         }
-        //Method to Add Doc to Index
-        public void AddIndex(Dictionary<string, int> wordsCount, Document document){
-            foreach(string word in wordsCount.Keys){
-                if(!invertedIndex.ContainsKey(word)){
-                    invertedIndex[word] = new HashSet<Document>();
-                }
-                invertedIndex[word].Add(document);
+        // Method to load the corpus (all files in a folder) into MongoDB
+        public void LoadCorpus(string folderPath)
+        {
+            int num = 0;
+            string[] filePaths = Directory.GetFiles(folderPath);
+
+            foreach (string filePath in filePaths)
+            {
+                string fileName = Path.GetFileNameWithoutExtension(filePath);
+                string fileContent = File.ReadAllText(filePath);
+                var document = new Document(num, fileName, fileContent, "Document URL");
+                num++;
+                AddDocumentToIndex(document);
             }
         }
-        //Method to search and return query result
+   
+         // Method to add a document to the index
+        public void AddDocumentToIndex(Document document){
+             // Store the document in the database
+            dbRepository.InsertDocument("documents", document);
+             // Parse the document to get the words and their frequency
+            var wordsCount = documentParser.Parse();
+            foreach(string word in wordsCount.Keys){
+                if(!invertedIndex.ContainsKey(word)){
+                    invertedIndex[word] = new List<Posting>();
+                }
+                List<Posting> postings = invertedIndex[word];
+                Posting? posting = postings.Find(p => p.DocumentId == document.GetID());
+                if (posting != null)
+                {
+                    posting.Frequency++;
+                }
+                else
+                {
+                    posting = new Posting(document.GetID(), 1);
+                    postings.Add(posting);
+                }
+            }
+        }
+        //Method to search index and return set of documents that match terms query
         public HashSet<Document> SearchIndex(string query)
         {
             HashSet<Document> result = new HashSet<Document>();
             if (invertedIndex.ContainsKey(query))
             {
-                result = invertedIndex[query];
+                List<Posting> postings = invertedIndex[query];
+                foreach (Posting posting in postings)
+                {
+                    Document document = dbRepository.GetDocumentById<Document>("documents", posting.DocumentId);
+                    if (document != null)
+                    {
+                        result.Add(document);
+                    }
+                }
             }
             return result;
         }
-        // Method to get Term Frequency in a document
+
+
+         // Method to get Term Frequency in a document
          public int GetTermFrequency(string term, int documentId)
         {
             string documentIdString = documentId.ToString(); 
@@ -88,6 +136,5 @@ namespace SearchAPI
         {
             return invertedIndex.Count; // or any other logic to determine the total number of documents
         }
-
     }
 }

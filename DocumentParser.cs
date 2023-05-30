@@ -1,4 +1,5 @@
-namespace SearchAPI{
+namespace SearchAPI
+{
     public class DocumentParser{
         private string docContent;
         private List<string> StopWords = new List<string>{"the", "a", "an", "and", "but","or", "for", "nor", "on", "at", "to", "from", "by", "with", "in", "of", "am", "I", "i", "my", "our", "has", "can", "been", "have", "that", "is", "isn't", "was", "that", "those", "these", "you", "me", "would"};

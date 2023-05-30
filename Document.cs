@@ -1,9 +1,10 @@
 namespace SearchAPI{
     public class Document{
-        private int ID;
-        private string Title;
-        private string Content;
-        private string URL;
+        private int ID { get; set; }
+        private string Title { get; set; }
+        private string Content { get; set; }
+        private string URL { get; set; }
+        private double Score { get; set; }
 
         public Document(int ID, string Title, string Content, string URL){
             this.ID = ID;
@@ -23,9 +24,12 @@ namespace SearchAPI{
         public string GetURL(){
             return this.URL;
         }
+        public double GetScore(){
+            return this.Score;
+        }
         public override string ToString()
         {
-            return $"ID: {this.ID}\nTitle: {this.Title}\nCONTENT: {this.Content}\nURL: {this.URL}";
+            return $"ID: {this.ID}\nTitle: {this.Title}\nCONTENT: {this.Content}\nURL: {this.URL}\nScore: {this.Score}";
         }
     }
 }

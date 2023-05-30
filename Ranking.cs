@@ -1,7 +1,16 @@
 namespace SearchAPI{
     public class Ranking
     {
-        private double CalculateRelevanceScore(Query query, Indexer indexer, Document document)
+        private Query query;
+        private Indexer indexer;
+
+        public Ranking(Query query, Indexer indexer)
+        {
+            this.query = query;
+            this.indexer = indexer;
+        }
+
+        private double CalculateRelevanceScore(Document document)
         {
             double relevanceScore = 0.0;
 
@@ -15,13 +24,14 @@ namespace SearchAPI{
             }
             return relevanceScore;
         }
-        public List<SearchResult> RankResults(Query query, Indexer index, List<Document> documents)
+
+        public List<SearchResult> RankResults(List<Document> documents)
         {
             List<SearchResult> results = new List<SearchResult>();
 
             foreach (Document document in documents)
             {
-                double relevanceScore = CalculateRelevanceScore(query, index, document);
+                double relevanceScore = CalculateRelevanceScore(document);
                 results.Add(new SearchResult(document, relevanceScore));
             }
 

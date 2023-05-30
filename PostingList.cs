@@ -1,19 +1,33 @@
-namespace SearchAPI{
+namespace SearchAPI
+{
+    public class Posting
+    {
+        public int DocumentId { get; set; }
+        public int Frequency { get; set; }
+
+        public Posting(int documentId, int frequency)
+        {
+            DocumentId = documentId;
+            Frequency = frequency;
+        }
+    }
     public class PostingList
     {
-       private List<Tuple<int, int>> postings;
-       private string? Term;
+        private List<Posting> postings;
 
-        public PostingList(string term)
-       {
-            postings = new List<Tuple<int, int>>();
-            this.Term = term;
-       }
-        public void AddPosting(int docId, int frequency)
+        public PostingList()
         {
-            postings.Add(new Tuple<int, int>(docId, frequency));
+            postings = new List<Posting>();
         }
-        public List<Tuple<int, int>> GetPostings(){
+
+        public void AddPosting(int documentId, int frequency)
+        {
+            var posting = new Posting(documentId, frequency);
+            postings.Add(posting);
+        }
+        
+        public List<Posting> GetPostings()
+        {
             return postings;
         }
     }

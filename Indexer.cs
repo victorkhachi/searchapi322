@@ -1,4 +1,5 @@
 using System.IO;
+using System.Timers;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
@@ -12,6 +13,7 @@ namespace SearchAPI
         private Dictionary<string, int> documentFrequencies;
         private DocumentParser documentParser;
         private DBrepository dbRepository;
+        private System.Timers.Timer indexerTimer;
 
         public Indexer(DocumentParser documentParser,  DBrepository dbRepository)
         {
@@ -20,7 +22,26 @@ namespace SearchAPI
             termFrequencies = new Dictionary<string, Dictionary<string, int>>();
             documentFrequencies = new Dictionary<string, int>();
             this.dbRepository = dbRepository;
+            indexerTimer = new System.Timers.Timer();
+            indexerTimer.Interval = 2 * 60 * 60 * 1000; // 2 hours in milliseconds
+            indexerTimer.Elapsed += IndexerTimerElapsed;
         }
+        public void StartIndexer()
+        {
+            indexerTimer.Start();
+        }
+
+        public void StopIndexer()
+        {
+            indexerTimer.Stop();
+        }
+
+        private void IndexerTimerElapsed(object? sender, ElapsedEventArgs e)
+        {
+            string folderPath = "Path to your corpus folder";
+            LoadCorpus(folderPath);
+        }
+
         // Method to load the corpus (all files in a folder) into MongoDB
         public void LoadCorpus(string folderPath)
         {
